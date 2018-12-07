@@ -26,10 +26,10 @@
 
 #define UPLOADURL @"https://www.pgyer.com/apiv2/app/upload"
 //---蒲公英配置---
-#define PGY_KEY    @"749dae52b2c81605db7ad07178fce38b"
-#define PGY_APIKEY @"dba31258b10d1c6d80ce4ea47e2a112c"
-#define PGY_APPKEY @"83ea930c524cd91650ec60583564b417"
-#define UPLOADDIALOG @"iOS-V1.1.0-Build9"
+#define PGY_KEY    @"YOUR KEY"
+#define PGY_APIKEY @"YOUR KEY"
+#define PGY_APPKEY @"YOUR KEY"
+#define UPLOADDIALOG @"YOUR DESCRIPTION" //iOS-V1.1.0-Build9
 
 @implementation FPBaseViewController
 {
