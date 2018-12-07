@@ -1,0 +1,21 @@
+
+//
+//  PrefixHeader.pch
+//  UploadApp
+//
+//  Created by 方世沛 on 2018/11/30.
+//  Copyright © 2018 方世沛. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#define NSColorFromRGB(s)  [NSColor colorWithRed:(((s & 0xFF0000) >> 16))/255.0 green:(((s &0xFF00) >>8))/255.0 blue:((s &0xFF))/255.0 alpha:1.0]
+
+#define ScreenWidth [NSScreen mainScreen].frame.size.width
+#define ScreenHeigh [NSScreen mainScreen].frame.size.height
+
+#endif /* PrefixHeader_pch */
