@@ -31,6 +31,7 @@
 #define PGY_APPKEY @"YOUR KEY"
 #define UPLOADDIALOG @"YOUR DESCRIPTION" //iOS-V1.1.0-Build9
 
+
 @implementation FPBaseViewController
 {
     FSTextField *panArcField;   //打包路径
@@ -123,6 +124,10 @@
 //MARK:上传事件
 
 - (void)uploadAct {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self->uploadField.cell.title = @"正在打包中";
+        self->uploadField.enabled = NO;
+    });
     NSString *arcPath    = [panArcField.cell.title stringByRemovingPercentEncoding];
     NSString *savPath    = [panSaveField.cell.title stringByRemovingPercentEncoding];
     NSString *scheme     = [schemeField.cell.title stringByRemovingPercentEncoding];
@@ -132,6 +137,10 @@
     task = [[NSTask alloc] init];
     [task setLaunchPath:scriptPath];
     [task setTerminationHandler:^(NSTask *ts) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self->uploadField.cell.title = @"打包";
+            self->uploadField.enabled = YES;
+        });
         [ts terminate];
         [self upload_pgy];
     }];
@@ -153,8 +162,8 @@
 //                                               object:readEnd];
 //    [readEnd waitForDataInBackgroundAndNotify];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [task launch];
-        [task waitUntilExit];
+        [self->task launch];
+        [self->task waitUntilExit];
     });
 }
 
@@ -395,6 +404,9 @@
 
 - (void)upload_pgy {
     NSData *data = [NSData dataWithContentsOfFile:finaPath];
+    if (!data) {
+        return;
+    }
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     manager.responseSerializer=[AFJSONResponseSerializer serializer];
